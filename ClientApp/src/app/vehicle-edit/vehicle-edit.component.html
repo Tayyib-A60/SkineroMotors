@@ -1,0 +1,77 @@
+<div class="row jumbotron">
+    <div class="col-xs-12">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                formControlName="name"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="costPrice">Cost Price</label>
+              <input
+                type="number"
+                id="costPrice"
+                formControlName="costPrice"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="sellingPrice">Selling Price</label>
+              <input
+                type="number"
+                id="sellingPrice"
+                class="form-control"
+                formControlName="sellingPrice">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="discount">Discount</label>
+              <input
+                type="number"
+                id="discount"
+                class="form-control"
+                formControlName="discount">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea
+                type="text"
+                id="description"
+                class="form-control"
+                formControlName="description"
+                rows="6"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="!vehicleForm.valid">{{editMode? 'Update': 'Save'}}</button>
+              <button type="button" class="btn btn-danger" *ngIf='!editMode'>Cancel</button>
+              <button type="button" class="btn btn-danger" *ngIf='editMode' (click)='delete()'>Delete</button>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>

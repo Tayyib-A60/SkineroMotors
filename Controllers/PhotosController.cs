@@ -12,7 +12,7 @@ using SkineroMotors.Core;
 using SkineroMotors.Core.Models;
 
 namespace SkineroMotors.Controllers {
-    [Route ("/api/skineroVehicles/{vehicleId}/photos")]
+    [Route ("/api/skineroVehicles/photos/{vehicleId}")]
     [ApiController]
     public class PhotosController : Controller {
         private PhotoSettings _photoSettings { get; }
@@ -67,6 +67,11 @@ namespace SkineroMotors.Controllers {
             var photo = await _photoRepository.GetPhoto(id, vehicleId);
             if(photo == null)
                 return NotFound("Photo not found");
+            var uploadsFolderPath = Path.Combine (_host.WebRootPath, "uploads");
+            var filePath = Path.Combine (uploadsFolderPath, photo.FileName);
+            FileInfo fileInfo = new FileInfo(filePath);
+            if(fileInfo.Exists)
+                fileInfo.Delete();
             _photoRepository.Remove(photo);
             await _unitOfWork.CompleteAsync();
 

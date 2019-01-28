@@ -10,11 +10,21 @@ import { Observable } from 'rxjs/Observable';
 export class VehicleService {
   constructor (private httpClient: HttpClient) {
   }
-  getVehicles () {
-    return this.httpClient.get('/api/skineroVehicles')
+  getVehicles (filter) {
+    return this.httpClient.get('/api/skineroVehicles'  + '?' + this.toQueryString(filter))
     .pipe(
       catchError((error: HttpErrorResponse) => this.handleError(error))
     );
+  }
+  private toQueryString(obj) {
+    const parts = [];
+    for (const property in obj) {
+      const value = obj[property];
+      if (value != null && value !== undefined) {
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+      }
+    }
+    return parts.join('&');
   }
   createVehicle (vehicle: Vehicle) {
     return this.httpClient.post('/api/skineroVehicles', vehicle);

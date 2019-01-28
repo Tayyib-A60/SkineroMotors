@@ -4,7 +4,8 @@ a{
   max-width: 350px;
 }
 a:hover{
-  background-color: #e2390e;
+  /* background-color: #e2390e; */
+  background-color: rgb(118, 219, 168);
 }
 img{
   max-width: 200px;

@@ -68,7 +68,7 @@
                 type="submit"
                 class="btn btn-success"
                 [disabled]="!vehicleForm.valid">{{editMode? 'Update': 'Save'}}</button>
-              <button type="button" class="btn btn-danger" *ngIf='!editMode'>Cancel</button>
+              <button type="button" class="btn btn-danger" *ngIf='!editMode' (click)="clear()">Cancel</button>
               <button type="button" class="btn btn-danger" *ngIf='editMode' (click)='delete()'>Delete</button>
             </div>
         </div>

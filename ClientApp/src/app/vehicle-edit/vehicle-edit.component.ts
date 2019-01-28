@@ -11,7 +11,7 @@ import { VehicleService } from '../services/vehicle.service';
   styleUrls: ['./vehicle-edit.component.css']
 })
 export class VehicleEditComponent implements OnInit {
-  vehicleForm: FormGroup;
+  vehicleForm: FormGroup =  new FormGroup({});
   editMode: boolean;
   index: number;
   vehicle: Vehicle;
@@ -48,7 +48,7 @@ export class VehicleEditComponent implements OnInit {
           'discount': new FormControl(this.vehicle.discount)
         });
       });
-    }
+    } else {
       this.vehicleForm =  new FormGroup({
         'name': new FormControl(name, Validators.required),
         'description': new FormControl(description, Validators.required),
@@ -56,6 +56,7 @@ export class VehicleEditComponent implements OnInit {
         'sellingPrice': new FormControl(sellingPrice, [Validators.required,  Validators.pattern(/^[1-9]+[0-9]*$/)]),
         'discount': new FormControl(discount)
       });
+    }
   }
   onSubmit () {
     if (this.editMode) {
@@ -68,6 +69,9 @@ export class VehicleEditComponent implements OnInit {
       });
       this.vehicleForm = new FormGroup({});
     }
+  }
+  clear() {
+    this.initializeForm();
   }
   delete () {
     if (confirm('Are you sure?')) {

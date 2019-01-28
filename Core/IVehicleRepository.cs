@@ -9,6 +9,6 @@ namespace SkineroMotors.Core
           Task<Vehicle> GetVehicle(int id);
           void Remove(Vehicle vehicle);
           void Add(Vehicle vehicle);
-          Task<IEnumerable<Vehicle>> GetVehicles(Vehicle vehicle);
+          Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery vehicle);
     }
 }

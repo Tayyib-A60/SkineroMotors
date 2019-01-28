@@ -1,13 +1,14 @@
+import { LogResponseInterceptor } from './services/logResponseInterceptor';
 import { ContactFormService } from './services/contactForm.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CarouselModule } from 'ngx-bootstrap';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -27,6 +28,11 @@ import { AuthService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { RegisteredUsersComponent } from './registered-users/registered-users.component';
 import { RegisterComponent } from './register/register.component';
+import { VehicleResolver } from './services/vehicleResolver.service';
+import { VehicleInterceptor } from './services/vehicleInterceptor.service';
+import { HttpCacheService } from './services/http-cache.service';
+import { CacheInterceptor } from './services/cache.interceptor';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +49,8 @@ import { RegisterComponent } from './register/register.component';
     VehicleEditComponent,
     VehicleItemComponent,
     RegisterComponent,
-    RegisteredUsersComponent
+    RegisteredUsersComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,14 +72,19 @@ import { RegisterComponent } from './register/register.component';
       { path: 'newVehicle', component: VehicleEditComponent },
       { path: 'newVehicle/:id', component: VehicleEditComponent },
       {path: 'vehicle/photo/:id', component: AddPicturesComponent},
-      {path: 'publicVehicles', component: VehicleComponent},
+      {path: 'publicVehicles', component: VehicleComponent, resolve: {resolvedVehicles: VehicleResolver}},
       {path: 'vehicle/details/:id', component: VehicleDetailsComponent},
       {path: 'user/registeredUsers', component: RegisteredUsersComponent},
       {path: 'user/login', component: LoginComponent},
       {path: 'user/register', component: RegisterComponent}
     ])
   ],
-  providers: [VehicleService, PhotoService, ContactFormService, AuthService, UserService],
+  providers: [VehicleService, PhotoService, ContactFormService, AuthService, UserService, VehicleResolver,
+    HttpCacheService,
+  // {provide: HTTP_INTERCEPTORS, useClass: VehicleInterceptor, multi: true},
+  {provide: HTTP_INTERCEPTORS, useClass: LogResponseInterceptor, multi: true},
+  {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

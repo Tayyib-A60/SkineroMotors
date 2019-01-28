@@ -40,31 +40,38 @@
       <span class="sr-only">Next</span>
     </a>
   </div> -->
-  <carousel>
-    <slide>
+  <carousel *ngIf="photos">
+    <slide *ngIf="photos.length>0">
       <img [src]="'/uploads/' + photos[0].fileName" alt="'/uploads/' + photos[0].fileName">
       <div class="carousel-caption d-none d-md-block">
         <h3>First slide label</h3>
         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
       </div>
     </slide>
-    <slide>
-      <img src="'/uploads/' + photos[1].fileName" alt="'/uploads/' + photos[1].fileName">
+    <slide *ngIf="photos.length>1">
+      <img [src]="'/uploads/' + photos[1].fileName" alt="'/uploads/' + photos[1].fileName">
       <div class="carousel-caption d-none d-md-block">
         <h3>Second slide label</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
       </div>
     </slide>
-    <slide>
+    <slide *ngIf="photos.length>2">
       <img [src]="'/uploads/' + photos[2].fileName" alt="'/uploads/' + photos[2].fileName">
       <div class="carousel-caption d-none d-md-block">
         <h3>Third slide label</h3>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
       </div>
     </slide>
+    <slide *ngIf="photos.length>3">
+      <img [src]="'/uploads/' + photos[3].fileName" alt="'/uploads/' + photos[3].fileName">
+      <div class="carousel-caption d-none d-md-block">
+        <h3>Fourth slide label</h3>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </div>
+    </slide>
   </carousel>
   <br><hr>
-  <div class="col-xs-12 col-md-12">
+  <div class="col-xs-12 col-md-12" *ngIf="vehicle">
     <div class="row">
       <h3>{{vehicle.name}}</h3>
       <h3>{{vehicle.sellingPrice | currency: 'NGN': 'symbol-narrow'}}</h3>

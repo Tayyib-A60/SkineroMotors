@@ -12,12 +12,11 @@ import { Photo } from '../../models/Photo.model';
 export class VehicleItemComponent implements OnInit {
   @Input() vehicle: Vehicle;
   @Input() index: number;
-  photos: Photo[];
+  photos: Photo[] = [];
   constructor(private router: Router, private route: ActivatedRoute, private photoService: PhotoService) { }
 
   ngOnInit() {
     this.getPhoto();
-    console.log(this.vehicle);
   }
 
   edit () {
@@ -25,7 +24,6 @@ export class VehicleItemComponent implements OnInit {
   }
   private getPhoto() {
     this.photoService.getPhotos(this.vehicle.id).subscribe(res => {
-      console.log(res);
       this.photos = res as Photo[];
     });
   }

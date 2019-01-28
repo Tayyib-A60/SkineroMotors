@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using SkineroMotors.Extensions;
 
 namespace SkineroMotors.Persistence
 {
@@ -26,12 +28,20 @@ namespace SkineroMotors.Persistence
             .SingleOrDefaultAsync(v => v.Id == Id);
             return await result;
         }
-        public async Task<IEnumerable<Vehicle>> GetVehicles(Vehicle vehicle)
+        public async Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery vehicleQueryObject)
         {
-            var result = _context.Vehicles
-            // .Include(v => v.Photos)
-            .ToListAsync();
-            return await result;
+            var result = new QueryResult<Vehicle>();
+            var query = _context.Vehicles
+            .AsQueryable();
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+            {
+                ["SellingPrice"] = v => v.SellingPrice
+            };
+            result.TotalItems = await query.CountAsync();
+            query = query.ApplyOrdering(vehicleQueryObject, columnsMap);
+            query = query.ApplyPaging(vehicleQueryObject);
+            result.Vehicles =  await query.ToListAsync();
+            return result;
         }
         public void Remove(Vehicle vehicle)
         {

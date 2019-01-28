@@ -5,6 +5,7 @@
   },
   "apps": [
     {
+      "name": "ssr",
       "root": "src",
       "outDir": "dist",
       "assets": [
@@ -18,16 +19,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/ngx-toastr/toastr.css"
+        "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      }
+      },
+      "platform": "server"
     }
   ],
   "e2e": {

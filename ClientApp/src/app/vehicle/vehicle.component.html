@@ -7,6 +7,9 @@
       [index]='i'></app-vehicle-item>
     </div>
 </div>
+<div>
+  <app-pagination *ngIf="queryResult.totalItems > query.pageSize" [totalItems]="queryResult.totalItems" [pageSize]="query.pageSize" (pageChanged)="onPageChange($event)"></app-pagination>
+</div>
 <div class="row ">
 <div class="col-xs-8 col-xs-offset-2 col-md-offset-2 col-md-8 jumbotron">
   <h2>Send us a Message</h2>

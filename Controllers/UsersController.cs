@@ -14,6 +14,8 @@ using System;
 using SkineroMotors.Core.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace SkineroMotors.Controllers {
     [Authorize]
@@ -108,6 +110,25 @@ namespace SkineroMotors.Controllers {
             var user = await _repository.GetUser(id);
             _repository.DeleteUser(user);
             return Ok(id);
+        }
+        [AllowAnonymous]
+        [HttpPost("sendEmail")]
+        public async Task<IActionResult> SendMail()
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Adesokan Tayyib", "adesokantayyib@gmail.com"));
+            message.To.Add(new MailboxAddress("LABULE", "liadi.omotola@gmail.com"));
+            message.Subject = "Sending an email with Dotnet is super cool";
+            message.Body = new TextPart("plain"){
+                Text = "This is my very first Dotnet email message"
+            };
+            using (var client = new SmtpClient()) {
+                client.Connect("smtp.gmail.com", 587);
+                await client.AuthenticateAsync("adesokantayyib@gmail.com", "Adenike1913");
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+            return Ok(message);
         }
     }
 }

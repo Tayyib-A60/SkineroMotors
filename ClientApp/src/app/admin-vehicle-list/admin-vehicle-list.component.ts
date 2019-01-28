@@ -1,3 +1,4 @@
+import { QueryResult } from './../models/queryResult.model';
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from '../services/vehicle.service';
 import { Vehicle } from '../models/vehicle.model';
@@ -9,12 +10,27 @@ import { Vehicle } from '../models/vehicle.model';
 })
 export class AdminVehicleListComponent implements OnInit {
   vehicles: Vehicle[];
+  queryResult: QueryResult = {
+    totalItems: 0,
+    vehicles: []
+  };
+  private readonly _pageSize = 5;
+  query: any = {
+    pageSize: this._pageSize
+  };
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit() {
-    this.vehicleService.getVehicles().subscribe(vehicles => {
-      this.vehicles = vehicles as Vehicle[];
+    this.populateVehicles();
+  }
+  private populateVehicles() {
+    this.vehicleService.getVehicles(this.query).subscribe(queryResult => {
+      this.queryResult = queryResult;
+      this.vehicles = this.queryResult.vehicles as Vehicle[];
     });
   }
-
+  onPageChange(page: number) {
+    this.query.page = page;
+    this.populateVehicles();
+  }
 }

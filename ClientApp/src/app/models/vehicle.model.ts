@@ -1,6 +1,6 @@
 import { Photo } from './Photo.model';
 
-export interface Vehicle {
+export class Vehicle {
   id: number;
   name: string;
   description: string;

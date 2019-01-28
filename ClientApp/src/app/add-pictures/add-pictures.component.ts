@@ -40,6 +40,12 @@ export class AddPicturesComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.getVehicle();
+    this.photoService.getPhotos(this.vehicleId).subscribe(photos =>
+      this.photos = photos as Photo[]
+      );
+  }
+  private getVehicle() {
     this.vehicleService.getVehicle(this.vehicleId)
       .subscribe(
         v => this.vehicle = v as Vehicle,
@@ -49,9 +55,6 @@ export class AddPicturesComponent implements OnInit {
             return;
           }
         });
-    this.photoService.getPhotos(this.vehicleId).subscribe(photos =>
-      this.photos = photos as Photo[]
-      );
   }
   changePage(page) {
     this.currentPage = page;
@@ -68,13 +71,21 @@ export class AddPicturesComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.vehicleService.deleteVehicle(this.vehicle.id)
         .subscribe(x => {
-          this.router.navigate(['/vehicles']);
+        }, (err) => {
+          console.log(err);
+          this.router.navigate(['../../../vehicles'], {relativeTo: this.route});
         });
     }
   }
   deletePhoto(id: number) {
     this.photoService.deletePhoto(id, this.vehicle.id).subscribe(res => {
       console.log(res);
+      console.log(this.photos);
+    }, (err) => {
+      const index = this.photos.findIndex(p => p.id === id && p.vehicleId === this.vehicle.id);
+      this.photos.splice(index, 1);
+      console.log(err);
+      console.log(this.photos);
     });
   }
   edit() {

@@ -10,3 +10,6 @@
       </tr>
     </tbody>
   </table>
+  <div>
+    <app-pagination *ngIf="queryResult.totalItems > query.pageSize" [totalItems]="queryResult.totalItems" [pageSize]="query.pageSize" (pageChanged)="onPageChange($event)"></app-pagination>
+  </div>

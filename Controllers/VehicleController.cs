@@ -73,11 +73,11 @@ namespace SkineroMotors.Controllers {
             return Ok(vehicleResource);
         }
         [HttpGet]
-        public async Task<IEnumerable<VehicleResource>> GetVehicles([FromQuery] VehicleResource vehicleResource)
+        public async Task<QueryResultResource<VehicleResource>> GetVehicles([FromQuery] VehicleQueryResource vehicleQueryResource)
         {
-            var vehicle = _mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            var vehicle = _mapper.Map<VehicleQueryResource, VehicleQuery>(vehicleQueryResource);
             var result = await _repository.GetVehicles(vehicle);
-            return  _mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(result);
+            return  _mapper.Map<QueryResult<Vehicle>, QueryResultResource<VehicleResource>>(result);
         }
     }
 }

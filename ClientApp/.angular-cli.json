@@ -5,7 +5,6 @@
   },
   "apps": [
     {
-      "name": "ssr",
       "root": "src",
       "outDir": "dist",
       "assets": [
@@ -27,8 +26,7 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      },
-      "platform": "server"
+      }
     }
   ],
   "e2e": {

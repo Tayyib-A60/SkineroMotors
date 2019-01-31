@@ -107,6 +107,7 @@ namespace SkineroMotors
 
                 if (env.IsDevelopment())
                 {
+                    // --extract--css
                     spa.UseAngularCliServer(npmScript: "start");
                     // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }

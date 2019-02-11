@@ -1,0 +1,98 @@
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand">Skinero Motors</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+          <a [routerLink]='["/publicVehicles"]'>
+              Products
+          </a>
+      </li>
+      <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/newVehicle"]'>
+               New Vehicle
+          </a>
+      </li>
+      <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/vehicles"]'>
+              Vehicles
+          </a>
+      </li>
+      <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/contactus"]'>
+              Contact us
+          </a>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <ng-template [ngIf]="!isAuthenticated()">
+          <li><a routerLink="/user/register">Register</a></li>
+          <li><a routerLink="/user/login">Login</a></li>
+        </ng-template>
+
+        <li><a
+          style="cursor: pointer;"
+          (click)="logout()"
+          *ngIf="isAuthenticated()">Logout</a></li>
+
+        <!-- <li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
+          <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
+            <li><a style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a></li>
+         </ul>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="sknavigation">
+    <input type="checkbox" class="sknavigation__checkbox" id="nav-toggle">
+    <label for="nav-toggle" class="sknavigation__button">
+        <span class="sknavigation__icon">&nbsp;</span>
+    </label>
+    <div class="sknavigation__background">&nbsp;</div>
+    <nav class="sknavigation__nav">
+        <ul class="sknavigation__list">
+          <li class="sknavigation__item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+          <a class="sknavigation__link" [routerLink]='["/publicVehicles"]'>
+              Products
+          </a>
+      </li>
+      <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link" [routerLink]='["/newVehicle"]'>
+               New Vehicle
+          </a>
+      </li>
+      <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link" [routerLink]='["/vehicles"]'>
+              Vehicles
+          </a>
+      </li>
+      <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link" [routerLink]='["/contactus"]'>
+              Contact us
+          </a>
+      </li>
+      <ng-template [ngIf]="!isAuthenticated()">
+        <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link" routerLink="/user/register">Register</a></li>
+        <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link" routerLink="/user/login">Login</a></li>
+      </ng-template>
+      <ng-template [ngIf]="isAuthenticated()">
+        <li class="sknavigation__item" [routerLinkActive]='["link-active"]'>
+          <a class="sknavigation__link"
+          style="cursor: pointer;"
+          (click)="logout()"
+          [routerLink]='["/publicVehicles"]'
+          >Logout</a></li>
+      </ng-template>
+    </ul>
+    </nav>
+</div>

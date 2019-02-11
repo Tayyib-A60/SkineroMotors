@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SkineroMotors.Controllers.Resources;
 using SkineroMotors.Core;
@@ -14,12 +16,16 @@ namespace SkineroMotors.Controllers {
     public class VehicleController : Controller {
         private IMapper _mapper { get; }
         private IVehicleRepository _repository { get; }
+        private IPhotoRepository _photoRepository { get; }
+        private IHostingEnvironment _host { get; }
         private IUnitOfWork _unitOfWork { get; }
-        public VehicleController (IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork)
+        public VehicleController (IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork,IPhotoRepository photoRepository, IHostingEnvironment host)
         {
             this._unitOfWork = unitOfWork;
             this._repository = repository;
             this._mapper = mapper;
+            this._photoRepository = photoRepository;
+            this._host = host;
         }
         [HttpPost]
         public async Task<IActionResult> CreateVehicle(VehicleResource vehicleResource) 
@@ -58,10 +64,23 @@ namespace SkineroMotors.Controllers {
             var  vehicle = await _repository.GetVehicle(id);
             if (vehicle == null)
                 return NotFound ("Not found");
+
+            var photos = await _photoRepository.GetPhotos(vehicle.Id);
+            if(photos == null)
+                return NotFound("Photo not found");
+            
+            var uploadsFolderPath = Path.Combine (_host.WebRootPath, "uploads");
+            foreach (Photo p in photos) {
+            var filePath = Path.Combine (uploadsFolderPath, p.FileName);
+            FileInfo fileInfo = new FileInfo(filePath);
+            if(fileInfo.Exists)
+                fileInfo.Delete();
+            }
+            
             _repository.Remove(vehicle);
             await _unitOfWork.CompleteAsync();
 
-            return Ok($"Vehicle with id {id} successfully removed");
+            return Ok(id);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)

@@ -1,0 +1,56 @@
+<section class="section-book">
+    <div class="skrow">
+        <div class="skbook">
+            <div class="skbook__form">
+                <form [formGroup]="contactForm" (ngSubmit)='onSubmit()' class="skform">
+                    <div class="u-margin-bottom-small">
+                        <h2 class="skheading-secondary">Send us a message</h2>
+                    </div>
+                    <div class="skform__group">
+                        <input
+                        type="text"
+                        placeholder="Full name"
+                        id="name"
+                        formControlName="name"
+                        class="skform__input" required>
+                        <label for="name" class="skform__label">Full Name</label>
+                    </div>
+                    <div class="skform__group">
+                        <input
+                        type="text"
+                        placeholder="Email"
+                        id="email"
+                        formControlName="email"
+                        class="skform__input" required>
+                        <label for="email" class="skform__label">Email</label>
+                    </div>
+                    <div class="skform__group">
+                        <input
+                        type="text"
+                        placeholder="phone"
+                        id="phone"
+                        formControlName="phone"
+                        class="skform__input" required>
+                        <label for="phone" class="skform__label">Phone</label>
+                    </div>
+                    <div class="skform__group">
+                        <textarea
+                        type="text"
+                        placeholder="message"
+                        id="name"
+                        formControlName="message"
+                        class="skform__input" required
+                        rows="6"></textarea>
+                        <label for="message" class="skform__label">Your message</label>
+                    </div>
+
+                        <div class="skform__group">
+                            <div class="u-margin-top-medium">
+                                <button [disabled]="!contactForm.valid" type="submit" class="skbtn skbtn--green">Submit</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

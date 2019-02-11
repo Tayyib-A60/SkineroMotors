@@ -8,6 +8,7 @@ namespace SkineroMotors.Core
     {
          Task<IEnumerable<Photo>> GetPhotos(int vehicleId);
          Task<Photo> GetPhoto(int id, int vehicleId);
+        //  Task<Photo> GetPhoto(int id);
          void Remove(Photo photo);
     }
 }

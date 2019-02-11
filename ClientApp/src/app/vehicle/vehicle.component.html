@@ -1,21 +1,79 @@
-<div class="row">
-    <div class="col-md-12">
-      <br><br><br>
-      <app-vehicle-item
+<div class="row" style="margin: 0 auto !important;">
+  <app-vehicle-item
       *ngFor="let vehicle of vehicles; let i = index"
       [vehicle]='vehicle'
-      [index]='i'></app-vehicle-item>
-    </div>
+      [index]='i'>
+  </app-vehicle-item>
 </div>
 <div>
   <app-pagination *ngIf="queryResult.totalItems > query.pageSize" [totalItems]="queryResult.totalItems" [pageSize]="query.pageSize" (pageChanged)="onPageChange($event)"></app-pagination>
 </div>
-<div class="row ">
+<!-- <section class="section-book">
+    <div class="skrow">
+        <div class="book">
+            <div class="book__form">
+                <form [formGroup]="contactForm" (ngSubmit)='onSubmit()' class="form">
+                    <div class="u-margin-bottom-small">
+                        <h2 class="heading-secondary">Send us a message</h2>
+                    </div>
+                    <div class="form__group">
+                        <input
+                        type="text"
+                        placeholder="Full name"
+                        id="name"
+                        formControlName="name"
+                        class="form__input" required>
+                        <label for="name" class="form__label">Full Name</label>
+                    </div>
+                    <div class="form__group">
+                        <input
+                        type="text"
+                        placeholder="Email"
+                        id="email"
+                        formControlName="email"
+                        class="form__input" required>
+                        <label for="email" class="form__label">Email</label>
+                    </div>
+                    <div class="form__group">
+                        <input
+                        type="text"
+                        placeholder="phone"
+                        id="phone"
+                        formControlName="phone"
+                        class="form__input" required>
+                        <label for="phone" class="form__label">Phone</label>
+                    </div>
+                    <div class="form__group">
+                        <textarea
+                        type="text"
+                        placeholder="message"
+                        id="name"
+                        formControlName="message"
+                        class="form__input" required
+                        rows="6"></textarea>
+                        <label for="message" class="form__label">Your message</label>
+                    </div>
+
+                        <div class="form__group">
+                            <div class="u-margin-top-medium">
+                                <button [disabled]="!contactForm.valid" type="submit" class="btn btn--green">Submit</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+
+
+<!-- <div class="skrow ">
 <div class="col-xs-8 col-xs-offset-2 col-md-offset-2 col-md-8 jumbotron">
   <h2>Send us a Message</h2>
   <hr>
       <form [formGroup]="contactForm" (ngSubmit)='onSubmit()'>
-          <div class="row">
+          <div class="skrow">
               <div class="col-xs-12">
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -27,7 +85,7 @@
                 </div>
               </div>
             </div>
-          <div class="row">
+          <div class="skrow">
               <div class="col-xs-12">
                 <div class="form-group">
                   <label for="name">Email</label>
@@ -39,7 +97,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="skrow">
                 <div class="col-xs-12">
                   <div class="form-group">
                     <label for="phone">Phone</label>
@@ -51,7 +109,7 @@
                   </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="skrow">
                 <div class="col-xs-12">
                   <div class="form-group">
                     <label class="text-inline" for="message">Your Message</label>
@@ -67,4 +125,4 @@
               <button type='submit' class="btn btn-success">Submit</button>
       </form>
     </div>
-  </div>
+  </div> -->

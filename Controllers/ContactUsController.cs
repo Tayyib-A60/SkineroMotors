@@ -32,8 +32,8 @@ namespace SkineroMotors.Controllers {
             await _unitOfWork.CompleteAsync();
             contactUs = await _repository.GetContact(contactUs.Id);
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Adesokan Tayyib", "adesokantayyib@gmail.com"));
-            message.To.Add(new MailboxAddress("Skinero Motors", "adesokanadedamola@rocketmail.com"));
+            message.From.Add(new MailboxAddress("Skinero Motors", "info@skineromotors.com"));
+            message.To.Add(new MailboxAddress(contactUs.Name,"adesokanadedamola@roketmail.com"));
             message.Subject = contactUs.Name;
             message.Body = new TextPart("plain"){
                 Text = $"{contactUs.Message} Contact Details {contactUs.Phone}  {contactUs.Email}"

@@ -70,12 +70,14 @@ namespace SkineroMotors.Controllers {
             var uploadsFolderPath = Path.Combine (_host.WebRootPath, "uploads");
             var filePath = Path.Combine (uploadsFolderPath, photo.FileName);
             FileInfo fileInfo = new FileInfo(filePath);
+            _photoRepository.Remove(photo);
             if(fileInfo.Exists)
                 fileInfo.Delete();
-            _photoRepository.Remove(photo);
             await _unitOfWork.CompleteAsync();
 
-            return Ok($"Photo with id {id} and vehicleId {vehicleId} succesfully removed");
+            // var ret = $"Photo with id {id} and vehicleId {vehicleId} succesfully removed"; 
+
+            return Ok(id);
         }
     }
 }

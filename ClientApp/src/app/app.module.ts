@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/authGuard.service';
 import { LogResponseInterceptor } from './services/logResponseInterceptor';
 import { ContactFormService } from './services/contactForm.service';
 import { ToastrModule } from 'ngx-toastr';
@@ -8,7 +9,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -29,10 +29,12 @@ import { UserService } from './services/user.service';
 import { RegisteredUsersComponent } from './registered-users/registered-users.component';
 import { RegisterComponent } from './register/register.component';
 import { VehicleResolver } from './services/vehicleResolver.service';
-import { VehicleInterceptor } from './services/vehicleInterceptor.service';
 import { HttpCacheService } from './services/http-cache.service';
 import { CacheInterceptor } from './services/cache.interceptor';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { FooterComponent } from './footer/footer.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,10 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     VehicleItemComponent,
     RegisterComponent,
     RegisteredUsersComponent,
-    PaginationComponent
+    PaginationComponent,
+    NavigationComponent,
+    FooterComponent,
+    ContactusComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,25 +67,25 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    CarouselModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'vehicles', component: AdminVehicleListComponent },
-      { path: 'newVehicle', component: VehicleEditComponent },
-      { path: 'newVehicle/:id', component: VehicleEditComponent },
-      {path: 'vehicle/photo/:id', component: AddPicturesComponent},
+      { path: 'vehicles', component: AdminVehicleListComponent, canActivate: [AuthGuardService] },
+      { path: 'newVehicle', component: VehicleEditComponent, canActivate: [AuthGuardService]},
+      { path: 'newVehicle/:id', component: VehicleEditComponent, canActivate: [AuthGuardService] },
+      {path: 'vehicle/photo/:id', component: AddPicturesComponent, canActivate: [AuthGuardService]},
       {path: 'publicVehicles', component: VehicleComponent, resolve: {resolvedVehicles: VehicleResolver}},
       {path: 'vehicle/details/:id', component: VehicleDetailsComponent},
-      {path: 'user/registeredUsers', component: RegisteredUsersComponent},
+      {path: 'user/registeredUsers', component: RegisteredUsersComponent, canActivate: [AuthGuardService]},
       {path: 'user/login', component: LoginComponent},
-      {path: 'user/register', component: RegisterComponent}
+      {path: 'user/register', component: RegisterComponent},
+      {path: 'contactus', component: ContactusComponent}
     ])
   ],
   providers: [VehicleService, PhotoService, ContactFormService, AuthService, UserService, VehicleResolver,
-    HttpCacheService,
+    HttpCacheService, AuthGuardService,
   // {provide: HTTP_INTERCEPTORS, useClass: VehicleInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: LogResponseInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true}

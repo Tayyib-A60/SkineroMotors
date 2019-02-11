@@ -38,8 +38,8 @@ export class VehicleService {
   updatevehicle (id: number, vehicle: Vehicle) {
     return this.httpClient.put('/api/skineroVehicles/' + id, vehicle);
   }
-  deleteVehicle (id: number) {
-    return this.httpClient.delete('/api/skineroVehicles/' + id);
+  deleteVehicle (id: number): Observable<any> {
+    return this.httpClient.delete<any>('/api/skineroVehicles/' + id);
   }
   private handleError(error: HttpErrorResponse) {
     const errorMessage: ErrorMessage = {message: ''};

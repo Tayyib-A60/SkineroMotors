@@ -1,6 +1,26 @@
 @media (max-width: 767px) {
   /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
+  /* .body-content {
     padding-top: 50px;
+  } */
+  .at-xs {
+    visibility: hidden;
+  }
+  .at-others {
+    visibility: hidden;
+  }
+  .sknavigation {
+    visibility: visible;
+  }
+}
+@media (min-width: 768px) {
+  .at-xs {
+    visibility: hidden;
+  }
+  .at-others {
+    visibility: visible;
+  }
+  .sknavigation {
+    visibility: hidden;
   }
 }

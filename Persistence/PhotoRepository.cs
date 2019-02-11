@@ -26,6 +26,12 @@ namespace SkineroMotors.Persistence
             .SingleOrDefaultAsync(p => (p.Id == id) && (p.VehicleId == vehicleId));
             return await result;
         }
+        // public async Task<Photo> GetPhoto(int id)
+        // {
+        //     var result = _context.Photos
+        //     .SingleOrDefaultAsync(p => (p.Id == id));
+        //     return await result;
+        // }
         public void Remove(Photo photo)
         {
             _context.Remove(photo);

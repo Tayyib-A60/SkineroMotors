@@ -71,21 +71,22 @@ export class AddPicturesComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.vehicleService.deleteVehicle(this.vehicle.id)
         .subscribe(x => {
+          console.log(x);
+          this.router.navigate(['../../../vehicles'], {relativeTo: this.route});
         }, (err) => {
           console.log(err);
-          this.router.navigate(['../../../vehicles'], {relativeTo: this.route});
         });
     }
   }
   deletePhoto(id: number) {
     this.photoService.deletePhoto(id, this.vehicle.id).subscribe(res => {
+      const index = this.photos.findIndex(p => p.id === id && p.vehicleId === this.vehicle.id);
+      this.photos.splice(index, 1);
+      this.toastr.success(`Photo with id ${id}  succesfully removed`, 'Success');
       console.log(res);
       console.log(this.photos);
     }, (err) => {
-      const index = this.photos.findIndex(p => p.id === id && p.vehicleId === this.vehicle.id);
-      this.photos.splice(index, 1);
       console.log(err);
-      console.log(this.photos);
     });
   }
   edit() {
@@ -100,6 +101,7 @@ export class AddPicturesComponent implements OnInit {
         switch (event.type) {
           case HttpEventType.Sent:
              console.log('Request sent');
+             this.toastr.success('Photo uploaded succesfully', 'Success');
             break;
           case HttpEventType.UploadProgress:
             const percentage = Math.round(100 * event.loaded / event.total);

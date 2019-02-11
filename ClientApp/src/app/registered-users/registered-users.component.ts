@@ -12,15 +12,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RegisteredUsersComponent implements OnInit {
   users: User[] = [];
-  currentUser: User;
-  contacts: ContactForm[];
+  currentUser: User = <User> { };
+  contacts: ContactForm[] = [];
 
   constructor(private userService: UserService, private contactService: ContactFormService,
     private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.users = [];
   }
 
   ngOnInit() {
+    console.log(this.users);
     this.getUsers();
     this.getContacts();
   }

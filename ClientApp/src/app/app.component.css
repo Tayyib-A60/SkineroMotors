@@ -4,13 +4,13 @@
     padding-top: 50px;
   } */
   .at-xs {
-    visibility: hidden;
+    visibility: visible;
   }
   .at-others {
     visibility: hidden;
   }
   .sknavigation {
-    visibility: visible;
+    visibility: hidden;
   }
 }
 @media (min-width: 768px) {

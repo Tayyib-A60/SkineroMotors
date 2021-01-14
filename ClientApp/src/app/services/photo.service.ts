@@ -44,18 +44,19 @@ export class PhotoService {
       })
     };
 
-    var inputs = `[{"inputType":"document-photo","group":0,"data":{"type":"passport","country":"NG","region":"","page":"front","filename":"ID_FRONT_SIDE.jpg"}}]`;
+    // var inputs = `[{"inputType":"document-photo","group":0,"data":{"type":"passport","country":"NG","region":"","page":"front","filename":"ID_FRONT_SIDE.jpg"}}]`;
+
+    var inputs = `[{"inputType":"document-photo","group":0,"data":{"type":"national-id","country":"NG","region":"","page":"front","filename":"ID_FRONT_SIDE.jpg"}},{"inputType":"selfie-video","data":{"filename":"Liveness_video.mp4"}}]`;
 
     console.log(inputs);
 
     formData.append('document', document1);
-    // formData.append('document', document2);
     formData.append('video', video);
     formData.append('inputs', inputs);
-    formData.append('email', data['email']);
-    formData.append('phoneNumber', data['phoneNumber']);
+    formData.append('AccountId', data['AccountId']);
+    // formData.append('phoneNumber', data['phoneNumber']);
     formData.append('documentType', data['documentType']);
-    const request = new HttpRequest('POST', `http://localhost:5000/api/kyc/upload_documents`, formData, { reportProgress: true});
+    const request = new HttpRequest('POST', `https://localhost:5004/api/kyc/upload_documents`, formData, { reportProgress: true});
     return this.httpClient.request(request);
   }
 

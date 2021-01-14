@@ -1,22 +1,54 @@
-<h1>Vehicle</h1>
+<!-- <h1>Vehicle</h1> -->
 <div class="picture--management">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <!-- <li role="presentation" class="nav-link" [class.active]="currentPage === 'details'"><a (click)="changePage('details')" aria-controls="basic" role="tab" data-toggle="tab">Vehicle</a></li> -->
-    <li role="presentation" class="nav-link" [class.active]="currentPage === 'photos'"><a (click)="changePage('photos')" aria-controls="photos" role="tab" data-toggle="tab">Photos</a></li>
+    <li role="presentation" class="nav-link" [class.active]="currentPage === 'photos'"><a (click)="changePage('photos')" aria-controls="photos" role="tab" data-toggle="tab">Docs</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <!-- Photos tab -->
     <div role="tabpanel" class="tab-pane" [class.active]="currentPage === 'photos'" id="photos">
-      <h2>Photos</h2>
-      <input type="file" class="btn" (change)="onPhotoUpload()" #fileInput>
+      <h2>Documents</h2>
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="input">Input</label>
+          <input
+          type="text"
+            id="input"
+            [ngModel]="input"
+            class="form-control">
+          </div>
+        </div>
+        <br>
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="accountId">Account Id</label>
+          <input
+          type="text"
+            id="accountId"
+            [ngModel]="accountId"
+            class="form-control">
+          </div>
+        </div>
+        <br>
+        <div class="col-xs-12">
+          <div class="form-group">
+      <label for="file">Document</label>
+      <input type="file" class="btn" #fileInput>
+      </div>
+    </div>
       <br>
       <!-- <input type="file" class="btn" #fileInput2>
-      <br> -->
+        <br> -->
+        <div class="col-xs-12">
+          <div class="form-group">
+        <label for="file">Video</label>
       <input type="file" class="btn" (change)="onPhotoUpload()" #videoInput>
+      </div>
+      </div>
       <br>
       <div class="progress" *ngIf="progress && progress < 100">
         <div class="progress-bar" [style.width]="progress + '%'">
@@ -28,6 +60,19 @@
         <img  src="/uploads/{{photo.fileName}}" alt="/uploads/{{photo.fileName}}" class="img-thumbnail">
         <button class="btn btn-danger"(click)="deletePhoto(photo.id)">Delete</button>
       </div> -->
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+      <h3>{{response | json}}</h3>
     </div>
   </div>
 </div>

@@ -19,6 +19,9 @@ export class KycUploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('fileInput2') fileInput2: ElementRef;
   @ViewChild('videoInput') videoInput: ElementRef;
+  input: string;
+  accountId: string;
+  response: any;
 
   photos: Photo[];
   currentPage = 'photos';
@@ -91,13 +94,12 @@ export class KycUploadComponent implements OnInit {
     nativeVideoElement = '' as any;
 
     console.log(videoFile);
-    
+
 
     var data = {
       'documentType': 'passport',
-      'inputs': 'inputs',
-      'email': 'test2@gmail.com',
-      'phoneNumber': '23412345678'
+      'inputs': this.input,
+      'AccountId': this.accountId
     };
 
     this.photoService.uploadKycDocs(data, file, videoFile)
@@ -112,7 +114,9 @@ export class KycUploadComponent implements OnInit {
             this.progress = percentage;
             break;
           case HttpEventType.Response:
-            this.photos.push(event.body);
+            // this.photos.push(event.body);
+            console.log(event);
+            this.response = event.body;
             this.toastr.success('Kyc Docs uploaded succesfully', 'Success');
         }
     }, err => {

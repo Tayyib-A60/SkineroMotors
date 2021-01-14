@@ -35,6 +35,30 @@ export class PhotoService {
     const request = new HttpRequest('POST', `/api/skineroVehicles/photos/${vehicleId}`, formData, { reportProgress: true});
     return this.httpClient.request(request);
   }
+
+  uploadKycDocs(data, document1, video) {
+    const formData = new FormData();
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    var inputs = `[{"inputType":"document-photo","group":0,"data":{"type":"passport","country":"NG","region":"","page":"front","filename":"ID_FRONT_SIDE.jpg"}}]`;
+
+    console.log(inputs);
+
+    formData.append('document', document1);
+    // formData.append('document', document2);
+    formData.append('video', video);
+    formData.append('inputs', inputs);
+    formData.append('email', data['email']);
+    formData.append('phoneNumber', data['phoneNumber']);
+    formData.append('documentType', data['documentType']);
+    const request = new HttpRequest('POST', `http://localhost:5000/api/kyc/upload_documents`, formData, { reportProgress: true});
+    return this.httpClient.request(request);
+  }
+
   deletePhoto(id: number, vehicleId: number) {
     return this.httpClient.delete(`/api/skineroVehicles/photos/${vehicleId}/${id}`);
   }

@@ -1,0 +1,33 @@
+<h1>Vehicle</h1>
+<div class="picture--management">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <!-- <li role="presentation" class="nav-link" [class.active]="currentPage === 'details'"><a (click)="changePage('details')" aria-controls="basic" role="tab" data-toggle="tab">Vehicle</a></li> -->
+    <li role="presentation" class="nav-link" [class.active]="currentPage === 'photos'"><a (click)="changePage('photos')" aria-controls="photos" role="tab" data-toggle="tab">Photos</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <!-- Photos tab -->
+    <div role="tabpanel" class="tab-pane" [class.active]="currentPage === 'photos'" id="photos">
+      <h2>Photos</h2>
+      <input type="file" class="btn" (change)="onPhotoUpload()" #fileInput>
+      <br>
+      <!-- <input type="file" class="btn" #fileInput2>
+      <br> -->
+      <input type="file" class="btn" (change)="onPhotoUpload()" #videoInput>
+      <br>
+      <div class="progress" *ngIf="progress && progress < 100">
+        <div class="progress-bar" [style.width]="progress + '%'">
+          <br>
+        </div>
+      </div>
+      <br>
+      <!-- <div *ngFor="let photo of photos">
+        <img  src="/uploads/{{photo.fileName}}" alt="/uploads/{{photo.fileName}}" class="img-thumbnail">
+        <button class="btn btn-danger"(click)="deletePhoto(photo.id)">Delete</button>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -61,6 +61,7 @@ namespace SkineroMotors.Controllers {
             await _unitOfWork.CompleteAsync ();
             return Ok (_mapper.Map<Photo, PhotoResource> (photo));
         }
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePhoto(int id, int vehicleId)
         {

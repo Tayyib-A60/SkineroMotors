@@ -35,6 +35,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { KycUploadComponent } from './kyc-upload/kyc-upload.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ContactusComponent } from './contactus/contactus.component';
     PaginationComponent,
     NavigationComponent,
     FooterComponent,
-    ContactusComponent
+    ContactusComponent,
+    KycUploadComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -69,7 +71,7 @@ import { ContactusComponent } from './contactus/contactus.component';
     }),
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      // { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'vehicles', component: AdminVehicleListComponent, canActivate: [AuthGuardService] },
@@ -81,7 +83,9 @@ import { ContactusComponent } from './contactus/contactus.component';
       {path: 'user/registeredUsers', component: RegisteredUsersComponent, canActivate: [AuthGuardService]},
       {path: 'user/login', component: LoginComponent},
       {path: 'user/register', component: RegisterComponent},
-      {path: 'contactus', component: ContactusComponent}
+      {path: 'contactus', component: ContactusComponent},
+      {path: '', component: KycUploadComponent}
+
     ])
   ],
   providers: [VehicleService, PhotoService, ContactFormService, AuthService, UserService, VehicleResolver,
